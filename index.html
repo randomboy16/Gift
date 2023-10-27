@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Happy Birthday Madam!!</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+            }
+
+            #balloon-container {
+            height: 100vh;
+            padding: 1em;
+            box-sizing: border-box;
+            display: flex;
+            flex-wrap: wrap;
+            overflow: hidden;
+            transition: opacity 500ms;
+            }
+
+            .balloon {
+            height: 125px;
+            width: 105px;
+            border-radius: 75% 75% 70% 70%;
+            position: relative;
+            }
+
+            .balloon:before {
+            content: "";
+            height: 75px;
+            width: 1px;
+            padding: 1px;
+            background-color: #FDFD96;
+            display: block;
+            position: absolute;
+            top: 125px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            }
+
+            .balloon:after {
+                content: "▲";
+                text-align: center;
+                display: block;
+                position: absolute;
+                color: inherit;
+                top: 120px;
+                left: 0;
+                right: 0;
+                margin: auto;
+            }
+
+            @keyframes float {
+            from {transform: translateY(100vh);
+            opacity: 1;}
+            to {transform: translateY(-300vh);
+            opacity: 0;}
+            }
+            #authorization, #content {
+                margin: 10px;
+            }
+            p{
+                margin: 10px;
+            }
+            input{
+                margin: 8px;
+            }
+            #footer {
+                text-align: center;
+                margin-top: 75vh;
+                padding: 10px;
+                color: #888;
+                background-color: #f7f7f7;
+            }
+            .heart:before {
+                content: "\2665";
+                color: red;
+                font-size: 30px;
+                vertical-align: middle;
+            }
+        </style>
+    </head>
+
+    <body >
+        <div id="authorization">
+            <p>Tell me Who are You in 5 letters... </p>
+            <input type="text" id="madam_peru" maxlength="5" required>
+            <button id="submitButton">Submit</button>
+            <p id="only_madam_allowed" style="color: red; display: none;">You are not allowed... Sorry :(</p>
+        </div>
+
+        <div id="content" style="display: none;">
+            <h2>Madam Content</h2>
+            <p>Hi madam!!!</p>
+            <h2 id="birthdayMessage"></h2>
+            <div id="countdown"></div>
+            <div id="footer">
+                Made with <span class="heart"></span>
+            </div>
+        </div>
+
+        <script>
+
+            const authorizationDiv = document.getElementById("authorization");
+            const contentDiv = document.getElementById("content");
+            const madam_peru = document.getElementById("madam_peru");
+            const only_madam_allowed = document.getElementById("only_madam_allowed");
+            const birthdayMessage = document.getElementById("birthdayMessage");
+            const countdown = document.getElementById("countdown");
+            const submitButton = document.getElementById("submitButton");
+
+            submitButton.addEventListener("click", function() {
+                const user_name = madam_peru.value.toLowerCase();
+                if (user_name === "madam") {
+                    authorizationDiv.style.display = "none";
+                    contentDiv.style.display = "block";
+                } else {
+                    only_madam_allowed.style.display = "block";
+                }
+            });
+
+            function pirandhanaal_vaalthukal() {
+                const currentDate = new Date();
+                const birthdayDate = new Date(currentDate.getFullYear(), 9, 27); 
+
+                if (currentDate.getMonth()+1 === birthdayDate.getMonth() && currentDate.getDate() === birthdayDate.getDate()) {
+                    birthdayMessage.textContent = "Happy Birthday Madam!";
+                    countdown.style.display = "none";
+                } else {
+                    const timeLeft = birthdayDate - currentDate;
+                    if (timeLeft > 0) {
+                        const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                        countdown.innerHTML = `Countdown: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                        birthdayMessage.textContent = "Hi!";
+                    } else {
+                        countdown.style.display = "none";
+                        birthdayMessage.textContent = "Hi!";
+                    }
+                }
+            }
+            pirandhanaal_vaalthukal();
+            setInterval(pirandhanaal_vaalthukal, 1000);
+
+
+        </script>
+    </body>
+</html>
